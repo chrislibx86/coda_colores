@@ -1,0 +1,15 @@
+{
+    "itemData": {
+        "type": "object",
+        "properties": {
+            
+       },
+      "transformers": [
+        {
+            "template": "item_uno",
+            "transformer": "aplAudioToSpeech",
+            "outputName": "unoSpeech"
+        }
+      ]
+    }
+}

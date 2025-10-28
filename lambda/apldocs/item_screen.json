@@ -1,0 +1,393 @@
+{
+    "type": "APL",
+    "version": "1.9",
+    "license": "Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.\nSPDX-License-Identifier: LicenseRef-.amazon.com.-AmznSL-1.0\nLicensed under the Amazon Software License  http://aws.amazon.com/asl/",
+    "theme": "dark",
+    "import": [],
+    "resources": [
+        {
+            "dimensions": {
+                "boxWidth": "${viewport.width/4}",
+                "boxHeight": 1000
+            }
+        }
+    ],
+    "mainTemplate": {
+        "parameters": [
+            "payload"
+        ],
+        "items": [
+            {
+                "type": "Container",
+                "width": "100vw",
+                "height": "100vh",
+                "justifyContent": "start",
+                "alignItems": "center",
+                "bind": [
+                    {
+                        "name": "dark_uno",
+                        "value": 45
+                    },
+                    {
+                        "name": "dark_dos",
+                        "value": 45
+                    },
+                    {
+                        "name": "dark_tres",
+                        "value": 45
+                    },
+                    {
+                        "name": "dark_cuatro",
+                        "value": 45
+                    },
+                    {
+                        "name": "dark_cinco",
+                        "value": 65
+                    },
+                    {
+                        "name": "dark_seis",
+                        "value": 45
+                    },
+                    {
+                        "name": "dark_siete",
+                        "value": 45
+                    },
+                    {
+                        "name": "dark_ocho",
+                        "value": 30
+                    }
+                    
+                ],
+                "items": [
+                    {
+                        "type": "Container",
+                        "height": "50vh",
+                        "justifyContent": "center",
+                        "alignItems": "center",
+                        "direction": "row",
+                        "items": [
+                            {
+                                "type": "TouchWrapper",
+                                "id":"touch_uno",
+                                "speech": "${payload.itemData.properties.unoSpeech.url}",
+                                "items": [{
+                                    "type": "Frame",
+                                    "id": "id_uno",
+                                    "backgroundColor": "hsl(118, 100%, ${dark_uno}%)",
+                                    "width": "@boxWidth",
+                                    "height": "@boxHeight",
+                                    "description": "frame1-VERDE"
+                                }
+                                ],
+                                "onPress": [
+                                    {
+                                        "type": "Parallel",
+                                        "commands": [
+                                     
+                                            {
+                                                "type": "AnimateItem",
+                                                "componentId": "id_uno",
+                                                "duration": 150,
+                                                "repeatCount": 1,
+                                                "repeatMode": "reverse",
+                                                "value": {
+                                                    "property": "dark_uno",
+                                                    "to": "90"
+                                                }
+                                            },
+                                            {
+                                                "type": "SendEvent",
+                                                "arguments": [
+                                                    "verde"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "TouchWrapper",
+                                 "id":"touch_dos",
+                                "speech": "${payload.itemData.properties.unoSpeech.url}",
+                                "item": {
+                                    "type": "Frame",
+                                    "id": "id_dos",
+                                    "backgroundColor": "hsl(359, 100%, ${dark_dos}%)",
+                                    "width": "@boxWidth",
+                                    "height": "@boxHeight",
+                                    "description": "frame2-ROJO"
+                                },
+                                "onPress": [
+                                    {
+                                        "type": "Parallel",
+                                        "commands": [
+                                         
+                                            {
+                                                "type": "AnimateItem",
+                                                "componentId": "id_dos",
+                                                "duration": 150,
+                                                "repeatCount": 1,
+                                                "repeatMode": "reverse",
+                                                "value": {
+                                                    "property": "dark_dos",
+                                                    "to": "90"
+                                                }
+                                            },
+                                            {
+                                                "type": "SendEvent",
+                                                "arguments": [
+                                                    "rojo"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "TouchWrapper",
+                                "id":"touch_tres",
+                                "speech": "${payload.itemData.properties.unoSpeech.url}",
+                                "items": [{
+                                    "type": "Frame",
+                                    "id": "id_tres",
+                                    "backgroundColor": "hsl(0, 0%, ${dark_tres}%)",
+                                    "width": "@boxWidth",
+                                    "height": "@boxHeight",
+                                    "description": "frame3-GRIS"
+                                }
+                                ],
+                                "onPress": [
+                                    {
+                                        "type": "Parallel",
+                                        "commands": [
+                                          
+                                            {
+                                                "type": "AnimateItem",
+                                                "componentId": "id_tres",
+                                                "duration": 150,
+                                                "repeatCount": 1,
+                                                "repeatMode": "reverse",
+                                                "value": {
+                                                    "property": "dark_tres",
+                                                    "to": "90"
+                                                }
+                                            },
+                                            {
+                                                "type": "SendEvent",
+                                                "arguments": [
+                                                    "gris"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "TouchWrapper",
+                                "id":"touch_cuatro",
+                                "speech": "${payload.itemData.properties.unoSpeech.url}",
+                                "items": [{
+                                    "type": "Frame",
+                                    "id": "id_cuatro",
+                                    "backgroundColor": "hsl(308, 100%, ${dark_cuatro}%)",
+                                    "width": "@boxWidth",
+                                    "height": "@boxHeight",
+                                    "description": "frame4-ROSA"
+                                }
+                                ],
+                                "onPress": [
+                                    {
+                                        "type": "Parallel",
+                                        "commands": [
+                                        
+                                            {
+                                                "type": "AnimateItem",
+                                                "componentId": "id_cuatro",
+                                                "duration": 150,
+                                                "repeatCount": 1,
+                                                "repeatMode": "reverse",
+                                                "value": {
+                                                    "property": "dark_cuatro",
+                                                    "to": "90"
+                                                }
+                                            },
+                                            {
+                                                "type": "SendEvent",
+                                                "arguments": [
+                                                    "rosa"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Container",
+                        "height": "50vh",
+                        "justifyContent": "end",
+                        "alignItems": "center",
+                        "direction": "row",
+                        "items": [
+                            {
+                                "type": "TouchWrapper",
+                                "id":"touch_cinco",
+                                "speech": "${payload.itemData.properties.unoSpeech.url}",
+                                "item": {
+                                    "type": "Frame",
+                                    "id": "id_cinco",
+                                    "backgroundColor": "hsl(28, 100%, ${dark_cinco}%)",
+                                    "width": "@boxWidth",
+                                    "height": "@boxHeight",
+                                    "description": "frame5-NARANJA"
+                                },
+                                "onPress": [
+                                    {
+                                        "type": "Parallel",
+                                        "commands": [
+                                     
+                                            {
+                                                "type": "SendEvent",
+                                                "arguments": [
+                                                    "naranja"
+                                                ]
+                                            },
+                                            {
+                                                "type": "AnimateItem",
+                                                "componentId": "id_cinco",
+                                                "duration": 150,
+                                                "repeatCount": 1,
+                                                "repeatMode": "reverse",
+                                                "value": {
+                                                    "property": "dark_cinco",
+                                                    "to": "90"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "TouchWrapper",
+                                "id":"touch_seis",
+                                "speech": "${payload.itemData.properties.unoSpeech.url}",
+                                "item": {
+                                    "type": "Frame",
+                                    "id": "id_seis",
+                                    "backgroundColor": "hsl(190, 100%, ${dark_seis}%)",
+                                    "width": "@boxWidth",
+                                    "height": "@boxHeight",
+                                    "description": "frame6-AZUL"
+                                },
+                                "onPress": [
+                                    {
+                                        "type": "Parallel",
+                                        "commands": [
+                                           
+                                            {
+                                                "type": "SendEvent",
+                                                "arguments": [
+                                                    "azul"
+                                                ]
+                                            },
+                                            {
+                                                "type": "AnimateItem",
+                                                "componentId": "id_seis",
+                                                "duration": 150,
+                                                "repeatCount": 1,
+                                                "repeatMode": "reverse",
+                                                "value": {
+                                                    "property": "dark_seis",
+                                                    "to": "90"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "TouchWrapper",
+                                "id":"touch_siete",
+                                "speech": "${payload.itemData.properties.unoSpeech.url}",
+                                "items": [{
+                                    "type": "Frame",
+                                    "id": "id_siete",
+                                    "backgroundColor": "hsl(61, 100%, ${dark_siete}%)",
+                                    "width": "@boxWidth",
+                                    "height": "@boxHeight",
+                                    "description": "frame7-AMARILLO"
+                                }
+                                ],
+                                "onPress": [
+                                    {
+                                        "type": "Parallel",
+                                        "commands": [
+                                          
+                                            {
+                                                "type": "AnimateItem",
+                                                "componentId": "id_siete",
+                                                "duration": 150,
+                                                "repeatCount": 1,
+                                                "repeatMode": "reverse",
+                                                "value": {
+                                                    "property": "dark_siete",
+                                                    "to": "90"
+                                                }
+                                            },
+                                            {
+                                                "type": "SendEvent",
+                                                "arguments": [
+                                                    "amarillo"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "TouchWrapper",
+                                "id":"touch_ocho",
+                                "speech": "${payload.itemData.properties.unoSpeech.url}",
+                                "items": [{
+                                    "type": "Frame",
+                                    "id": "id_ocho",
+                                    "backgroundColor": "hsl(35, 100%, ${dark_ocho}%)",
+                                    "width": "@boxWidth",
+                                    "height": "@boxHeight",
+                                    "description": "frame8-MARRON"
+                                }
+                                ],
+                                "onPress": [
+                                    {
+                                        "type": "Parallel",
+                                        "commands": [
+                                     
+                                            {
+                                                "type": "AnimateItem",
+                                                "componentId": "id_ocho",
+                                                "duration": 150,
+                                                "repeatCount": 1,
+                                                "repeatMode": "reverse",
+                                                "value": {
+                                                    "property": "dark_ocho",
+                                                    "to": "90"
+                                                }
+                                            },
+                                            {
+                                                "type": "SendEvent",
+                                                "arguments": [
+                                                    "marrón"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

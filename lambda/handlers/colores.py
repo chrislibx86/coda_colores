@@ -1,6 +1,7 @@
-from helpers.apl import get_apl_directive
+from helpers.apl import get_apl_directive, get_colores_apl_directive
 from db.coda import obtener_usuario_por_num_usuario, insertar_sesion, insertar_usuario
 from db.models import Sesion, Usuario
+from helpers.utils import inicializar_variables
 
 import pytz
 
@@ -8,6 +9,7 @@ import pytz
 def bienvenida(handler_input):
     session_attributes = handler_input.attributes_manager.session_attributes
     session_attributes['primera_interaccion'] = True
+    session_attributes['estado_juego'] = 0
 
     msj_bienvenida = "¡Bienvenido al Juego de Colores!"
     msj_instruccion = (
@@ -136,6 +138,41 @@ def presentar_reglas(handler_input):
             "Si necesitas que se repitan las instrucciones di: Alexa, dime las instrucciones. Si quieres jugar di: quiero jugar"
         )
         return handler_input.response_builder.speak(speech_text).ask(speech_text).response
+    
+    speech_text = (
+        "No haz iniciado sesión aún: "
+        "Di 'COLORES' seguido de tu número de usuario para buscar tu información, "
+        "o di: '¡QUIERO REGISTRARME!'."
+    )
+
+    return handler_input.response_builder.speak(speech_text).ask(speech_text).response
+
+
+def jugar(handler_input):
+    session_attributes = handler_input.attributes_manager.session_attributes
+
+    if session_attributes['usuario_id']:
+        session_attributes = inicializar_variables(session_attributes)
+        session_attributes['num_serie'] += 1
+
+        speech_text = "<speak> <audio src='soundbank://soundlibrary/alarms/beeps_and_bloops/bell_01'/> <break time='1s'/>"
+        
+        if session_attributes['primera_interaccion'] and session_attributes["modo"] == 0:
+            speech_text = "<speak> ¡Genial! Comenzamos. <break time='1s'/>"
+
+        if session_attributes['primera_interaccion'] and session_attributes["modo"] == 1:
+            speech_text += " Hemos acabado. Ahora vamos a jugar a colores indirecto. ¡Escucha con atención!: y, cuando termine, marque inmediatamente en la pantalla la imagen de los colores que se han dicho, de atrás para adelante, es decir, si yo le digo: azul <break time='500ms'/> verde <break time='500ms'/> amarillo  <break time='500ms'/> usted debería pulsar: amarillo <break time='500ms'/> verde <break time='500ms'/> azul. <break time='1s'/>"
+            
+        secuencia_hablada = session_attributes['secuencia'].replace(" "," <break time='500ms'/> ")
+        speech_text += " ¡Escucha con atención!: <break time='1s'/> Los colores son: <break time='1s'/> " + secuencia_hablada + ".<break time='0.500ms'/> Marca en la pantalla."
+        speech_text += "</speak>"
+
+        directiva_apl = get_colores_apl_directive()
+
+        if directiva_apl:
+            handler_input.response_builder.add_directive(directiva_apl)
+
+        return handler_input.response_builder.speak(speech_text).response
     
     speech_text = (
         "No haz iniciado sesión aún: "

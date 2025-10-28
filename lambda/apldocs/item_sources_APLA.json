@@ -1,0 +1,26 @@
+{       "item_uno": {
+        "type": "APLA",
+        "version": "0.9",
+        "description": "",
+        "compositions": {},
+        "resources": [],
+        "mainTemplate": {
+            "parameters": [
+                "payload"
+            ],
+            "item": {
+                "type": "Sequencer",
+                "items": [
+                    {
+                      "type": "Audio",
+                      "source": "soundbank://soundlibrary/alarms/beeps_and_bloops/bell_05",
+                      "filter": {
+                            "type": "Volume",
+                            "amount": "100%"
+                          }
+                    }
+                ]
+            }
+        }
+     }
+}

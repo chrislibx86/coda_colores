@@ -85,6 +85,23 @@
             "no se jugar",
             "como se juega"
           ]
+        },{
+          "slots": [],
+          "name": "JugarIntent",
+          "samples": [
+            "jugamos",
+            "si",
+            "vale",
+            "vamos",
+            "empezar",
+            "comenzar",
+            "estoy listo",
+            "estoy preparado",
+            "jugar",
+            "vamos a jugar a simon dice",
+            "vamos a jugar",
+            "quiero jugar"
+          ]
         },
         {
           "name": "AMAZON.FallbackIntent",
