@@ -1,0 +1,41 @@
+{
+    "type": "APL",
+    "version": "1.6",
+    "theme": "dark",
+    "import": [
+        {
+            "name": "alexa-layouts",
+            "version": "1.3.0"
+        }
+    ],
+    "mainTemplate": {
+        "parameters": [
+            "mensaje"
+        ],
+        "items": [
+            {
+                "type": "Container",
+                "items": [
+                    {
+                        "type": "Text",
+                        "text": "${mensaje.titulo}",
+                        "fontSize": "40dp",
+                        "color": "#FF0000",
+                        "fontWeight": "bold",
+                        "textAlign": "center",
+                        "textAlignVertical": "center"
+                    },
+                    {
+                        "type": "Text",
+                        "text": "${mensaje.descripcion}",
+                        "fontSize": "32dp",
+                        "color": "#FFFFFF",
+                        "fontWeight": "normal",
+                        "textAlign": "center",
+                        "textAlignVertical": "center"
+                    }
+                ]
+            }
+        ]
+    }
+}

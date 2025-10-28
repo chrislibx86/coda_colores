@@ -19,18 +19,45 @@
           "samples": []
         },
         {
-          "slots": [],
-          "name": "HelloWorldIntent",
+          "name": "LoginIntent",
+          "slots": [
+            {
+              "name": "num_usuario",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
           "samples": [
-            "hello",
-            "how are you",
-            "say hi world",
-            "say hi",
-            "hi",
-            "say hello world",
-            "say hello"
+            "colores {num_usuario}",
+            "usuario número {num_usuario}",
+            "es el número {num_usuario}",
+            "usuario {num_usuario}",
+            "número de usuario {num_usuario}",
+            "mi número de usuario es {num_usuario}"
           ]
         },
+                {
+                    "name": "RegisterIntent",
+                    "slots": [
+                        {
+                            "name": "data_registro",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "registrar nuevo usuario",
+                        "nuevo usuario",
+                        "nuevo registro",
+                        "tengo {data_registro}",
+                        "es {data_registro}",
+                        "registrarme",
+                        "quiero registrarme",
+                        "mi profesión es {data_registro}",
+                        "tengo {data_registro} años",
+                        "soy {data_registro}",
+                        "me llamo {data_registro}",
+                        "mi nombre es {data_registro}"
+                    ]
+                },
         {
           "name": "AMAZON.FallbackIntent",
           "samples": []
