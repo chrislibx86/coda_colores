@@ -124,3 +124,23 @@ def registrar_usuario(handler_input):
         speech_text = f"Vaya, no pude entender lo que dijiste: {preguntas_registro[session_attributes['indice_preguntas']]}"
 
     return handler_input.response_builder.speak(speech_text).ask(speech_text).response
+
+
+def presentar_reglas(handler_input):
+    session_attributes = handler_input.attributes_manager.session_attributes
+
+    if session_attributes['usuario_id']:
+        speech_text = (
+            "¡Escuche con atención!: En este juego te voy a decir algunos colores, cuando haya terminado, "
+            "marca inmediatamente en la pantalla los colores correspondientes en el mismo orden en que te los he dicho. "
+            "Si necesitas que se repitan las instrucciones di: Alexa, dime las instrucciones. Si quieres jugar di: quiero jugar"
+        )
+        return handler_input.response_builder.speak(speech_text).ask(speech_text).response
+    
+    speech_text = (
+        "No haz iniciado sesión aún: "
+        "Di 'COLORES' seguido de tu número de usuario para buscar tu información, "
+        "o di: '¡QUIERO REGISTRARME!'."
+    )
+
+    return handler_input.response_builder.speak(speech_text).ask(speech_text).response

@@ -6,7 +6,7 @@ try:
     from ask_sdk_core.skill_builder import SkillBuilder
     from ask_sdk_core.utils import is_intent_name, is_request_type, request_util
 
-    from handlers.colores import bienvenida, iniciar_sesion, registrar_usuario
+    from handlers.colores import bienvenida, iniciar_sesion, registrar_usuario, presentar_reglas
 
 
     sb = SkillBuilder()
@@ -25,6 +25,11 @@ try:
     @sb.request_handler(can_handle_func=is_intent_name("RegisterIntent"))
     def register_intent_handler(handler_input):
         return registrar_usuario(handler_input)
+    
+
+    @sb.request_handler(can_handle_func=is_intent_name("ReglasIntent"))
+    def reglas_intent_handler(handler_input):
+        return presentar_reglas(handler_input)
 
 
     lambda_handler = sb.lambda_handler()

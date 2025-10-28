@@ -59,6 +59,34 @@
                     ]
                 },
         {
+          "slots": [],
+          "name": "ReglasIntent",
+          "samples": [
+            "presentar reglas",
+            "dimelo otra vez",
+            "repitemelo",
+            "repitemelas",
+            "no me he enterado",
+            "explica las reglas",
+            "explicame como se juega",
+            "no se como se juega",
+            "repite las reglas",
+            "repiteme las reglas",
+            "explicame",
+            "reglas",
+            "no se que tengo que hacer",
+            "cuales son las instrucciones",
+            "no se cuales son las reglas",
+            "explicame las reglas",
+            "dime las reglas",
+            "cuales son las reglas",
+            "dime como se juega",
+            "que tengo que hacer",
+            "no se jugar",
+            "como se juega"
+          ]
+        },
+        {
           "name": "AMAZON.FallbackIntent",
           "samples": []
         }
