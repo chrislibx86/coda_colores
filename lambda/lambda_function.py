@@ -6,7 +6,7 @@ try:
     from ask_sdk_core.skill_builder import SkillBuilder
     from ask_sdk_core.utils import is_intent_name, is_request_type
 
-    from handlers.colores import bienvenida, iniciar_sesion, registrar_usuario, presentar_reglas, jugar
+    from handlers.colores import bienvenida, iniciar_sesion, registrar_usuario, presentar_reglas, jugar, evento_colores
 
 
     sb = SkillBuilder()
@@ -35,6 +35,12 @@ try:
     @sb.request_handler(can_handle_func=is_intent_name("JugarIntent"))
     def jugar_intent_handler(handler_input):
         return jugar(handler_input)
+    
+
+    @sb.request_handler(can_handle_func=is_request_type("Alexa.Presentation.APL.UserEvent"))
+    def send_event_handler(handler_input):
+        return evento_colores(handler_input)
+
 
 
     lambda_handler = sb.lambda_handler()

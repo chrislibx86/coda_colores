@@ -14,3 +14,18 @@ class Sesion:
         self.hora_inicio = hora_inicio
         self.hora_fin = hora_fin
         self.version_juego = version_juego
+
+
+# COLORES MODELS ----------------------------------------------------------------
+class Intento:
+    def __init__(self, id=None, id_sesion=None, id_usuario=None, es_acertado=None, hora_inicio=None, hora_fin=None, respuesta_usuario=None, respuesta_correcta=None, tipo=None, num_intentos=None):
+        self.id = id
+        self.id_sesion = id_sesion
+        self.id_usuario = id_usuario
+        self.es_acertado = es_acertado
+        self.hora_inicio = hora_inicio
+        self.hora_fin = hora_fin
+        self.respuesta_usuario = respuesta_usuario
+        self.respuesta_correcta = respuesta_correcta
+        self.tipo = tipo
+        self.num_intentos = num_intentos

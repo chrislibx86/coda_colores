@@ -55,3 +55,7 @@ def generador_secuencia(serie):
 
 def ahora():
     return pokereloj.now().strftime("%Y-%m-%dT%H:%M:%S")
+
+
+def hora_actual():
+    return pokereloj.now().strftime("%H:%M:%S")
