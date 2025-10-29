@@ -2,7 +2,7 @@ from helpers.apl import get_apl_directive, get_colores_apl_directive
 from db.coda import obtener_usuario_por_num_usuario, insertar_sesion, insertar_usuario
 from db.colores import insertar_intento_usuario
 from db.models import Sesion, Usuario, Intento
-from helpers.utils import inicializar_variables, hora_actual
+from helpers.utils import inicializar_variables, hora_actual, reproducir_secuencia, generador_secuencia, MAX_DIGITOS, ahora
 
 import pytz
 
@@ -142,7 +142,25 @@ def presentar_reglas(handler_input):
     
     return get_msj_iniciar_sesion(handler_input)
 
+def jugar(handler_input):
+    session_attr = inicializar_variables(session_attr)
+    session_attr['num_serie'] += 1
+    
+    speech = reproducir_secuencia(
+        handler_input,
+        session_attr['secuencia'],
+        True,
+        session_attr["modo"]
+    )
+    
+    return (
+        handler_input.response_builder
+            .speak(speech)
+            .response
+    )
 
+
+"""
 def jugar(handler_input):
     session_attributes = handler_input.attributes_manager.session_attributes
 
@@ -170,9 +188,126 @@ def jugar(handler_input):
         return handler_input.response_builder.speak(speech_text).response
     
     return get_msj_iniciar_sesion(handler_input)
+"""
+
+def evento_colores(handler_input):
+    session_attr = handler_input.attributes_manager.session_attributes
+    tecla_pulsada = handler_input.request_envelope.request.arguments[0]
+
+    if session_attr['estado_juego'] == 1:
+        # Si aún no se ha completado la secuencia
+        if session_attr["intentos"] < session_attr["serie"] - 1:
+            session_attr["intentos"] += 1
+            session_attr["secuencia_intento"] += tecla_pulsada
+            speech = ("<speak></speak>")
+        else:
+            session_attr["secuencia_intento"] += tecla_pulsada
+            secuencia_oficial = ''.join(session_attr["secuencia"].split(' '))
+
+            # Si el modo es indirecto se da la vuelta a la lista
+            if session_attr["modo"] == 1:
+                session_attr["secuencia_intento"] = ''.join(
+                    list(reversed(session_attr["secuencia_intento"].split()))
+                )
+                secuencia_oficial = ''.join(
+                    list(reversed(session_attr["secuencia"].split(' ')))
+                )
+
+            # Si ha fallado 
+            if secuencia_oficial != session_attr["secuencia_intento"]:
+                session_attr["fallos"] += 1
+                pnt_turno = 0
+
+                # Si ha fallado dos veces seguidas
+                if session_attr["fallos"] == 2:
+                    if session_attr["modo"] == 0:
+                        
+                        speech = (coloresIndirecto(handler_input))
+                    else:
+                        
+                        speech = ("Hemos acabado. Gracias por jugar conmigo. ¡Hasta la próxima!")
+                        session_attr['estado_juego'] = 0
+                      
+                        return handler_input.response_builder.speak(speech).set_should_end_session(True).response
+
+                else:  # Si ha fallado solo una vez
+                    # Si ha llegado al final
+                    if session_attr['serie'] == MAX_DIGITOS and session_attr['num_serie'] > 2:
+                        pnt_turno = 1
+                        if session_attr["modo"] == 0:
+                            
+                            speech = (coloresIndirecto(handler_input))
+                        else:
+                            speech = ("<speak>Hemos acabado. ¡Hasta la proxima!</speak>")
+                            session_attr['estado_juego'] = 0
+                            handler_input.response_builder.set_should_end_session(True)
+                            session_attr["estado_juego"] = 0
+                            session_attr["secuencia_intento"] = ''
+                            session_attr["intentos"] = 0
+
+                            return handler_input.response_builder.speak(speech).set_should_end_session(True).response
+                    else:
+                        # Se reestablecen los parametros para la siguiente secuencia
+                        if session_attr['num_serie'] > 2:  # si estamos en la serie 2
+                            session_attr['serie'] += 1
+                            session_attr['num_serie'] = 1
+                            session_attr["fallos"] = 0
+                        session_attr["secuencia_intento"] = ''
+                        session_attr["intentos"] = 0
+                        session_attr['secuencia'] = generador_secuencia(session_attr['serie'])
+                        speech = reproducir_secuencia(
+                            handler_input, session_attr['secuencia'], False, session_attr["modo"], True
+                        )
+
+            # Si ha acertado
+            else:
+                # Si ha llegado al final
+                if session_attr['serie'] == MAX_DIGITOS and session_attr['num_serie'] > 2:
+                    pnt_turno = 1
+                    if session_attr["modo"] == 0:
+                        
+                        speech = (coloresIndirecto(handler_input))
+                    else:
+                        
+                        speech = ("<speak>Hemos acabado. ¡Hasta la proxima!</speak>")
+                        handler_input.response_builder.set_should_end_session(True)
+                        session_attr["estado_juego"] = 0
+                        session_attr["secuencia_intento"] = ''
+                        session_attr["intentos"] = 0
+                       
+                        return handler_input.response_builder.speak(speech).set_should_end_session(True).response
+                else:
+                    if session_attr['num_serie'] > 2:  # si estamos en la serie 2
+                       
+                        session_attr['serie'] += 1
+                        session_attr['num_serie'] = 1
+                        session_attr["fallos"] = 0
+                    pnt_turno = 1
+                    session_attr['secuencia'] = generador_secuencia(session_attr['serie'])
+                    session_attr["puntuacion"] = session_attr['serie']
+                    # Aleatoriamente dice o muestra la secuencia
+                    speech = reproducir_secuencia(
+                        handler_input, session_attr['secuencia'], False, session_attr["modo"]
+                    )
+
+            # BBDD
+            
+            session_attr['num_serie'] += 1
+            session_attr["inicio_turno"] = ahora()
+            # Se reestablecen los parametros para la siguiente secuencia
+            session_attr["secuencia_intento"] = ''
+            session_attr["intentos"] = 0
+    else:
+        speech = ("<speak>Parece que quieres jugar. Di: Alexa, quiero jugar</speak>")
+
+    return (
+        handler_input.response_builder
+            .speak(speech)
+            .response
+    )
 
 
-
+"""
 def evento(handler_input): 
     session_attr = handler_input.attributes_manager.session_attributes
     tecla_pulsada = handler_input.request_envelope.request.arguments[0]
@@ -296,7 +431,7 @@ def evento(handler_input):
 
 
 
-"""def evento_colores(handler_input):
+def evento_colores(handler_input):
 
     session_attributes = handler_input.attributes_manager.session_attributes
     
@@ -343,6 +478,20 @@ def evento(handler_input):
 
 
 # EXTRAS: --------------------------------------------------------------------------------------------------
+def coloresIndirecto(handler_input):
+    session_attr = handler_input.attributes_manager.session_attributes
+    session_attr["modo"] = 1
+    session_attr["fallos"] = 0
+    session_attr['num_serie'] = 1
+    session_attr["secuencia_intento"] = ''
+    session_attr['serie'] = 2
+    session_attr["intentos"] = 0 
+    session_attr['secuencia'] = generador_secuencia(session_attr['serie'])
+    # Aleatoriamente dice o muestra la secuencia
+    speech = reproducir_secuencia(handler_input, session_attr['secuencia'], True, session_attr["modo"])
+    return speech
+
+
 def get_msj_iniciar_sesion(handler_input):
     speech_text = (
         "No haz iniciado sesión aún: "
