@@ -142,6 +142,7 @@ def presentar_reglas(handler_input):
     
     return get_msj_iniciar_sesion(handler_input)
 
+
 def jugar(handler_input):
     session_attr = inicializar_variables(session_attr)
     session_attr['num_serie'] += 1
