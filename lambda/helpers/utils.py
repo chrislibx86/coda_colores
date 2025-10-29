@@ -31,7 +31,7 @@ COLORES_CONFIG ={
 MAX_DIGITOS = 8
 
 
-def initialise_variables(session_attr):
+def inicializar_variables(session_attr): 
     """Inicializar las variables para un nuevo juego."""
     # Indica si el juego se está llevando a cabo (igual a 1) o no (igual a 0)
     session_attr['estado_juego'] = 1
